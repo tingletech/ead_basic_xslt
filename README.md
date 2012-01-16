@@ -2,7 +2,8 @@
 
 ## xslt
 
-`xsltproc -o ead_file.html ead_entry.xslt ead_file.xml`
+`xsltproc -o html_file.html xslt/ead_entry.xslt ead_file.xml`
+`python/ead_test_xslt.py ead-test-col ead-test-col-html`
 
 This set of XSLT 1.0 + EXSLT stylesheets should turn any EAD into
 HTML
