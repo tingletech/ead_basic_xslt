@@ -431,7 +431,7 @@ phystech | prefercite | processinfo | relatedmaterial | scopecontent | separated
 <xsl:variable name="hoops">
 <xsl:choose>
  <xsl:when test="@href and not (@show='embed')">
-  <a href="{replace(@href,'http://ark.cdlib.org/ark:/','http://content.cdlib.org/ark:/')}">
+  <a href="{str:replace(@href,'http://ark.cdlib.org/ark:/','http://content.cdlib.org/ark:/')}">
   <xsl:choose>
   <xsl:when test=".//text()">
    <!-- xsl:apply-templates mode="ref"/ -->
