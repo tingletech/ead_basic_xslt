@@ -57,4 +57,7 @@ http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead
 
 ## See also
 
+### EAD Tag Use
 https://gist.github.com/1614098 ↢ https://github.com/tingletech/ead_tag_use.py
+
+### [EAD Noun-Obscured Specimen Collection](https://github.com/tingletech/ead-test-col/wiki)
