@@ -1,6 +1,6 @@
 # ead_basic_xslt
 
-## xslt
+## tested with libxml2's xsltproc and python lxml
 
 `xsltproc -o html_file.html xslt/ead_entry.xslt ead_file.xml`
 `python/ead_test_xslt.py ead-test-col ead-test-col-html`
@@ -51,8 +51,6 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 ```
-### python dependencies
-`lxml`
 
 ## Example HTML ↢ EAD
 http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead-test-col
