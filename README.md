@@ -1,4 +1,6 @@
-# Generic EAD XSLT
+# ead_basic_xslt
+
+## xslt
 
 `xsltproc -o ead_file.html ead_entry.xslt ead_file.xml`
 
@@ -18,7 +20,7 @@ in `xslt` directory
  * `supplied-labels-headings.xsl` provides function to supply for
     missing headings and labels
 
-## EXSLT
+### EXSLT
 
 ```
 xmlns:str="http://exslt.org/strings"
@@ -34,7 +36,7 @@ xmlns:func="http://exslt.org/functions"         extension-element-prefixes="func
 
 ## python/ead_test_xslt.py
 
-usage: ead_test_xslt.py [-h] indir outdir
+```usage: ead_test_xslt.py [-h] indir outdir
 
 run xsltproc on a directory
 
@@ -44,4 +46,4 @@ positional arguments:
 
 optional arguments:
   -h, --help  show this help message and exit
-
+```
