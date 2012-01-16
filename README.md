@@ -2,8 +2,8 @@
 
 `xsltproc -o ead_file.html ead_entry.xslt ead_file.xml`
 
-This set of XSLT 1.0 stylesheets should turn any EAD into HTML,
-whether it is an EAD 2002 Schema or an EAD 2002 DTD.
+This set of XSLT 1.0 + EXSLT stylesheets should turn any EAD into
+HTML, whether it is an EAD 2002 Schema or an EAD 2002 DTD.
 
  * `ead_entry.xslt` pulls it all together
  * `ead.html.xsl` has the main EAD to HTML logic mode="ead"
@@ -16,3 +16,16 @@ whether it is an EAD 2002 Schema or an EAD 2002 DTD.
  * `supplied-labels-headings.xsl` provides function to supply for
     missing headings and labels
 
+## EXSLT
+
+```
+xmlns:str="http://exslt.org/strings"
+  str:replace()
+
+xmlns:exsl="http://exslt.org/common"            extension-element-prefixes="exsl"
+  exsl:node-set()
+  
+xmlns:func="http://exslt.org/functions"         extension-element-prefixes="func"
+  <func:function>
+  <func:return>
+```
