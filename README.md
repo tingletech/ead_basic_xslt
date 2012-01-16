@@ -48,3 +48,7 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 ```
+
+## Examples
+
+http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead-test-col
