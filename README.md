@@ -51,6 +51,8 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 ```
+### python dependencies
+`lxml`
 
 ## Example HTML ↢ EAD
 http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead-test-col
