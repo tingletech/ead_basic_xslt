@@ -5,7 +5,9 @@
 `xsltproc -o ead_file.html ead_entry.xslt ead_file.xml`
 
 This set of XSLT 1.0 + EXSLT stylesheets should turn any EAD into
-HTML, whether it is an EAD 2002 Schema or an EAD 2002 DTD.
+HTML
+
+* same XSLT works with __EAD 2002 Schema__ and __EAD 2002 DTD__ finding aids.
 
 in `xslt` directory
 
