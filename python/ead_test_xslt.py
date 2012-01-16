@@ -15,7 +15,6 @@ import sys
 from lxml import etree
 
 pathname = os.path.dirname(sys.argv[0])
-print pathname
 XSLT = etree.XSLT(etree.parse(os.path.join(pathname, '..', 'xslt', 'ead_entry.xslt')))
 
 def main(argv=None):
@@ -27,6 +26,8 @@ def main(argv=None):
     # parse the args from the command line if none were supplied from the REPL
     if argv is None:
         argv = parser.parse_args()
+
+    index = []
      
     # walk through all the files in the directory
     for root, subFolders, files in os.walk(argv.indir[0]):
@@ -34,9 +35,18 @@ def main(argv=None):
         # http://stackoverflow.com/questions/2186525/
         for filename in fnmatch.filter(files, '*.xml'):
             filePath = os.path.join(root, filename)
-            transform_file(filePath, argv.outdir[0])
+            transform_file(filePath, argv.outdir[0], index)
+    f = open(os.path.join(argv.outdir[0],'index.html'), 'w')
+    f.write(a2html(index))
 
-def transform_file(ead_file, outdir):
+def a2html(index):
+    ret = "<div>\n"
+    for i in index:
+        ret += '  <div><a href="%s">%s</a></div>\n' % (i, i)
+    ret += "</div>\n"
+    return ret
+
+def transform_file(ead_file, outdir, index):
     # http://stackoverflow.com/questions/2507808/
     if os.stat(ead_file)[6]==0:
         return
@@ -47,6 +57,7 @@ def transform_file(ead_file, outdir):
     htmlSubDir = os.path.basename(os.path.dirname(fileName))
     htmlOutDir = os.path.join(outdir, htmlSubDir)
     outFile = os.path.join(htmlOutDir, ''.join([htmlFile,'.html']))
+    index.append(os.path.join('./', htmlSubDir, ''.join([htmlFile,'.html'])))
     mkdir_p(htmlOutDir)
     res = XSLT(xml)
     res.write(outFile)
