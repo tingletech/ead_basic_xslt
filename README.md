@@ -36,7 +36,8 @@ xmlns:func="http://exslt.org/functions"         extension-element-prefixes="func
 
 ## python/ead_test_xslt.py
 
-```usage: ead_test_xslt.py [-h] indir outdir
+```
+usage: ead_test_xslt.py [-h] indir outdir
 
 run xsltproc on a directory
 
