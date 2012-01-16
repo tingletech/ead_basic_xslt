@@ -2,19 +2,13 @@
 <!-- BSD License at botton of file -->
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-  xmlns:saxon="http://icl.com/saxon" 
-  xmlns:editURL="http://cdlib.org/xtf/editURL"
-  xmlns:xtf="http://cdlib.org/xtf"
-  xmlns:iso="http://www.loc.gov"
-  extension-element-prefixes="saxon" 
-  xmlns:tmpl="xslt://template"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:str="http://exslt.org/strings"
+  exclude-result-prefixes="str"
   version="1.0">
   
   <xsl:include href="./langcodes.xsl"/>
   <xsl:include href="./geocodes.xsl"/>
-  <xsl:strip-space elements="*"/>
+  <!-- xsl:strip-space elements="*"/ -->
 
 <xsl:template match="*" mode="ead">
 	<xsl:apply-templates mode="ead"/>

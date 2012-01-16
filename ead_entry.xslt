@@ -2,14 +2,10 @@
 <!-- BSD License at botton of file -->
 <xsl:stylesheet 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-  xmlns:saxon="http://icl.com/saxon" 
-  xmlns:editURL="http://cdlib.org/xtf/editURL"
-  xmlns:xtf="http://cdlib.org/xtf"
-  xmlns:iso="http://www.loc.gov"
-  extension-element-prefixes="saxon" 
-  xmlns:tmpl="xslt://template"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  version="1.0">
+  version="1.0"
+  xmlns:exsl="http://exslt.org/common"
+  extension-element-prefixes="exsl"
+>
 
   <xsl:output 
     method="xml"
@@ -30,8 +26,14 @@
   <!-- supply missing headings and labels -->
   <xsl:include href="supplied-labels-headings.xsl"/>
 
+  <!-- run schema version through some normalizations -->
+  <xsl:include href="at2oac.xsl"/>
+
   <!-- load input XML into a variable -->
-  <xsl:variable name="page" select="/"/>
+  <xsl:variable name="pageIn">
+    <xsl:apply-templates select="/" mode="at2oac"/>
+  </xsl:variable>
+  <xsl:variable name="page" select="exsl:node-set($pageIn)"/>
 
   <!-- external HTML template -->
   <xsl:variable name="layout" select="document('template.xhtml')"/>
@@ -39,20 +41,33 @@
   <!-- root -->
   <xsl:template match="/">
     <xsl:apply-templates select="($layout)//*[local-name()='html']"/>
+    <!-- xsl:apply-templates select="$page" mode="at2oac"/ -->
   </xsl:template>
 
   <!-- title -->
   <xsl:template match="title">
     <xsl:element name="{name()}">
       <xsl:for-each select="@*"><xsl:copy/></xsl:for-each>
-      <xsl:value-of select="$page/ead/eadheader/filedesc/titlestmt/titleproper[1]" mode="ead-no-hit-nav"/>
+      <xsl:value-of select="($page)/ead/eadheader/filedesc/titlestmt/titleproper[1]" mode="ead-no-hit-nav"/>
     </xsl:element>
   </xsl:template>
 
   <xsl:template match="div[@id='content']">
     <xsl:element name="{name()}">
       <xsl:for-each select="@*"><xsl:copy/></xsl:for-each>
-      <xsl:apply-templates select="$page/ead" mode="ead"/>
+      <xsl:if test="$page/ead/eadheader/filedesc">
+        <xsl:apply-templates select="$page/ead/eadheader/filedesc" mode="ead"/>
+        <hr/>
+      </xsl:if>
+      <xsl:if test="$page/ead/frontmatter">
+        <xsl:apply-templates select="$page/ead/frontmatter" mode="ead"/>
+        <hr/>
+      </xsl:if>
+      <xsl:if test="$page/ead/archdesc">
+        <xsl:apply-templates select="$page/ead/archdesc" mode="ead"/>
+        <hr/>
+      </xsl:if>
+      <xsl:apply-templates select="$page/ead/archdesc/dsc" mode="eadStart"/>
     </xsl:element>
   </xsl:template>
 
