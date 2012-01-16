@@ -5,6 +5,8 @@
 This set of XSLT 1.0 + EXSLT stylesheets should turn any EAD into
 HTML, whether it is an EAD 2002 Schema or an EAD 2002 DTD.
 
+in `xslt` directory
+
  * `ead_entry.xslt` pulls it all together
  * `ead.html.xsl` has the main EAD to HTML logic mode="ead"
  * `template.xhtml` HTML template file for output default mode
@@ -29,3 +31,17 @@ xmlns:func="http://exslt.org/functions"         extension-element-prefixes="func
   <func:function>
   <func:return>
 ```
+
+## python/ead_test_xslt.py
+
+usage: ead_test_xslt.py [-h] indir outdir
+
+run xsltproc on a directory
+
+positional arguments:
+  indir       input directory of EAD
+  outdir      output directory of HTML
+
+optional arguments:
+  -h, --help  show this help message and exit
+
