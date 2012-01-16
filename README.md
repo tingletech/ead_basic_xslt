@@ -8,7 +8,7 @@ HTML, whether it is an EAD 2002 Schema or an EAD 2002 DTD.
  * `ead_entry.xslt` pulls it all together
  * `ead.html.xsl` has the main EAD to HTML logic mode="ead"
  * `template.xhtml` HTML template file for output default mode
- * `at2oac.xsl` converts EAD schema such at from AT to EAD DTD mode="at2oac"
+ * `at2oac.xsl` converts EAD schema such as from AT to EAD DTD mode="at2oac"
  * `table.common.xsl` CALS table to HTML from Norm Walsh mode="ead"
  * `table.html.xsl` select options for table.common.xsl mode="ead"
  * `geocodes.xsl` provides function to expand geocodes to text
