@@ -53,6 +53,4 @@ optional arguments:
 ```
 
 ## Example HTML ↢ EAD
-```
 http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead-test-col
-```
