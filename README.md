@@ -9,13 +9,17 @@ This set of XSLT 1.0 + EXSLT stylesheets should turn any EAD into
 HTML
 
 * same XSLT works with __EAD 2002 Schema__ and __EAD 2002 DTD__ finding aids.
+* same XSLT works with nested __<c>__s and numbered __<c0x>__s
+
+## Example HTML ↢ EAD
+http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead-test-col
 
 in `xslt` directory
 
- * `ead_entry.xslt` pulls it all together
+ * `ead_entry.xslt` pulls it all together; interfaces `ead.html.xslt` to `template.xhtml`
  * `ead.html.xsl` has the main EAD to HTML logic mode="ead"
- * `template.xhtml` HTML template file for output default mode
- * `at2oac.xsl` converts EAD schema such as from AT to EAD DTD mode="at2oac"
+ * `template.xhtml` HTML template file for output; apply-templates runs on this
+ * `at2oac.xsl` converts EAD schema (such as from AT) to EAD DTD mode="at2oac"
  * `table.common.xsl` CALS table to HTML from Norm Walsh mode="ead"
  * `table.html.xsl` select options for table.common.xsl mode="ead"
  * `geocodes.xsl` provides function to expand geocodes to text
@@ -26,9 +30,6 @@ in `xslt` directory
 ### EXSLT
 
 ```
-xmlns:str="http://exslt.org/strings"
-  str:replace()
-
 xmlns:exsl="http://exslt.org/common"            extension-element-prefixes="exsl"
   exsl:node-set()
   
@@ -51,9 +52,6 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 ```
-
-## Example HTML ↢ EAD
-http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead-test-col
 
 ## See also
 
