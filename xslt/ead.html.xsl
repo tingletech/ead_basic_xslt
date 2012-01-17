@@ -705,13 +705,30 @@ able"
   </i>
 </xsl:template>
 
+<xsl:template name="label-colon">
+  <xsl:param name="string"/>
+  <xsl:choose>
+    <xsl:when test="contains($string,':')"/>
+    <xsl:otherwise>
+      <xsl:text>:</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template match="*[@label and name()!='container']" mode="ead">
-<div class="ead-p">
-<!-- xsl:if test="@id"><a id="{@id}" name="{@id}"/></xsl:if -->
-<xsl:call-template name="id-me"/>
-<b><xsl:value-of select="str:replace(@label,'[.:;,]+\s*$','')"/>:</b><xsl:text> </xsl:text>
-<xsl:apply-templates mode="ead"/> 
-</div>
+  <div class="ead-p">
+    <xsl:call-template name="id-me"/>
+    <!-- replace(@label,'[.:;,]+\s*$','')"/> -->
+    <xsl:variable name="label" select="normalize-space(@label)"/>
+    <b>
+      <xsl:value-of select="$label"/>
+      <xsl:call-template name="label-colon">
+        <xsl:with-param name="string" select="$label"/>
+      </xsl:call-template>
+    </b>
+    <xsl:text> </xsl:text>
+    <xsl:apply-templates mode="ead"/> 
+  </div>
 </xsl:template>
 
 <xsl:template name="id-me">
@@ -719,15 +736,20 @@ able"
 </xsl:template>
 
 <xsl:template match="repository[@label][1]" mode="ead" priority="1">
+<xsl:variable name="label" select="normalize-space(@label)"/>
 <xsl:if test="count($page/ead/archdesc/did/repository) &gt; 1">
         <a name="oac-multi-institution-ref" id="oac-multi-institution-ref"></a>
 </xsl:if>
 <div class="ead-p">
-<b><xsl:value-of select="str:replace(@label,'[.:;,]+\s*$','')"/>:</b><xsl:text> </xsl:text>
+<b><xsl:value-of select="$label"/>
+      <xsl:call-template name="label-colon">
+        <xsl:with-param name="string" select="$label"/>
+      </xsl:call-template>
+</b>
+<xsl:text> </xsl:text>
 <xsl:apply-templates mode="ead"/>
 </div>
 </xsl:template>
-
 
 <xsl:template match="dsc" mode="ead">
 </xsl:template>
