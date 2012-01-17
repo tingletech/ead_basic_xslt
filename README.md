@@ -9,7 +9,7 @@ This set of XSLT 1.0 + EXSLT stylesheets should turn any EAD into
 HTML
 
 * same XSLT works with __EAD 2002 Schema__ and __EAD 2002 DTD__ finding aids.
-* same XSLT works with nested __<c>__s and numbered __<c0x>__s
+* same XSLT works with nested __&lt;c>__s and numbered __&lt;c0x>__s
 
 ## Example HTML ↢ EAD
 http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead-test-col
