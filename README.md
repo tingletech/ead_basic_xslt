@@ -14,6 +14,8 @@ HTML
 ## Example HTML ↢ EAD
 http://tingletech.github.com/ead-test-col/ ↢ https://github.com/tingletech/ead-test-col
 
+## 8 XSLT files and one HTML template
+
 in `xslt` directory
 
  * `ead_entry.xslt` pulls it all together; interfaces `ead.html.xslt` to `template.xhtml`
