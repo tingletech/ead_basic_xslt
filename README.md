@@ -39,6 +39,7 @@ xmlns:func="http://exslt.org/functions"         extension-element-prefixes="func
 ```
 
 ## python/ead_test_xslt.py
+Comes with a utility to generate HTML files from EAD files in batch by directory.
 
 ```
 usage: ead_test_xslt.py [-h] indir outdir
