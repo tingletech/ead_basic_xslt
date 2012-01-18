@@ -64,7 +64,7 @@ div.cx { margin-top: 10px; margin-bottom: 10px; font-size: 90%; overflow: hidden
 	width: 610px;
 	}
 
-.cx div.c { float: left; width: 100px; /*clear: both;*/}
+.cx div.c { float: left; width: 111px; /*clear: both;*/}
 
 .cx p { margin-top: 0px; margin-bottom: 0px;}
 .collection-contents img { margin-top: 0px; margin-left: 0px; margin-right: 0px; margin-bottom: 0px;}
