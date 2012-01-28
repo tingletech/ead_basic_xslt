@@ -36,7 +36,8 @@
   <xsl:variable name="page" select="exsl:node-set($pageIn)"/>
 
   <!-- external HTML template -->
-  <xsl:variable name="layout" select="document('template.xhtml')"/>
+  <!-- http://eric.van-der-vlist.com/blog/2368_The_influence_of_microformats_on_style-free_stylesheets.item  -->
+  <xsl:variable name="layout" select="document('template.html')"/>
 
   <!-- root -->
   <xsl:template match="/">
