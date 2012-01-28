@@ -8,7 +8,7 @@
 >
 
   <xsl:output 
-    method="xml"
+    method="html"
     indent="yes"
     encoding="utf-8"
     media-type="text/html; charset=UTF-8" 
@@ -41,7 +41,8 @@
   <!-- root -->
   <xsl:template match="/">
     <xsl:apply-templates select="($layout)//*[local-name()='html']"/>
-    <!-- xsl:apply-templates select="$page" mode="at2oac"/ -->
+    <!-- xsl:apply-templates select="/" mode="at2oac"/ -->
+    <!-- xsl:copy><xsl:copy-of select="$page"/></xsl:copy -->
   </xsl:template>
 
   <!-- title -->
