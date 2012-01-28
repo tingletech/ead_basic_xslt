@@ -15,28 +15,28 @@ body {
 
 /* DEFAULT HTML STLES */
 
-p {
+.collection-contents p {
 	margin: 5px 0 5px 0;
 	}
 	
-b {
+.collection-contents b {
 	font-weight: bold;
 	}
 
-strong {
+.collection-contents strong {
 	font-weight: bold;
 	}
 
-ul 	{
+.collection-contents ul 	{
 	margin: 10px 0 10px 0;
 
 	}
-ul li {
+.collection-contents ul li {
 	list-style: disc;
 	margin: 0 50px 5px 20px;
 	}
 
-blockquote {
+.collection-contents blockquote {
         padding: 10px;
      }
 
