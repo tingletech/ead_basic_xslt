@@ -1,0 +1,101 @@
+<!DOCTYPE html>  <html> <head>   <title>ead_entry.xslt</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               ead_entry.xslt             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Copyright 2012 UC Regents all Rights Reserved </p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>BSD License at botton of file </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:stylesheet</span> 
+  <span class="na">xmlns:xsl=</span><span class="s">&quot;http://www.w3.org/1999/XSL/Transform&quot;</span> 
+  <span class="na">version=</span><span class="s">&quot;1.0&quot;</span>
+  <span class="na">xmlns:exsl=</span><span class="s">&quot;http://exslt.org/common&quot;</span>
+  <span class="na">extension-element-prefixes=</span><span class="s">&quot;exsl&quot;</span>
+<span class="nt">&gt;</span>
+
+  <span class="k">&lt;xsl:output</span> 
+    <span class="na">method=</span><span class="s">&quot;html&quot;</span>
+    <span class="na">indent=</span><span class="s">&quot;yes&quot;</span>
+    <span class="na">encoding=</span><span class="s">&quot;utf-8&quot;</span>
+    <span class="na">media-type=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span> 
+    <span class="na">omit-xml-declaration=</span><span class="s">&quot;yes&quot;</span>
+    <span class="na">doctype-public=</span><span class="s">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span>
+    <span class="na">doctype-system=</span><span class="s">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>
+  <span class="nt">/&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>norm walsh's CALS table code </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:include</span> <span class="na">href=</span><span class="s">&quot;table.html.xsl&quot;</span><span class="nt">/&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>main EAD transformation </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:include</span> <span class="na">href=</span><span class="s">&quot;ead.html.xsl&quot;</span><span class="nt">/&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>supply missing headings and labels </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:include</span> <span class="na">href=</span><span class="s">&quot;supplied-labels-headings.xsl&quot;</span><span class="nt">/&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>run schema version through some normalizations </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:include</span> <span class="na">href=</span><span class="s">&quot;at2oac.xsl&quot;</span><span class="nt">/&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>load input XML into a variable </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;pageIn&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;/&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;page&quot;</span> <span class="na">select=</span><span class="s">&quot;exsl:node-set($pageIn)&quot;</span><span class="nt">/&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>external HTML template </p>             </td>             <td class="code">               <div class="highlight"><pre>  </pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>http://eric.van-der-vlist.com/blog/2368<em>The</em>influence<em>of</em>microformats<em>on</em>style-free_stylesheets.item  </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;layout&quot;</span> <span class="na">select=</span><span class="s">&quot;document(&#39;template.html&#39;)&quot;</span><span class="nt">/&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>root </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;/&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;($layout)//*[local-name()=&#39;html&#39;]&quot;</span><span class="nt">/&gt;</span>
+    </pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>xsl:apply-templates select="/" mode="at2oac"/ </p>             </td>             <td class="code">               <div class="highlight"><pre>    </pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>xsl:copy><xsl:copy-of select="$page"/></xsl:copy </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;/xsl:template&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>title </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;title&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{name()}&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:for-each</span> <span class="na">select=</span><span class="s">&quot;@*&quot;</span><span class="nt">&gt;</span><span class="k">&lt;xsl:copy</span><span class="nt">/&gt;</span><span class="k">&lt;/xsl:for-each&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;($page)/ead/eadheader/filedesc/titlestmt/titleproper[1]&quot;</span> <span class="na">mode=</span><span class="s">&quot;ead-no-hit-nav&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:element&gt;</span>
+  <span class="k">&lt;/xsl:template&gt;</span>
+
+  <span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;div[@id=&#39;content&#39;]&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{name()}&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:for-each</span> <span class="na">select=</span><span class="s">&quot;@*&quot;</span><span class="nt">&gt;</span><span class="k">&lt;xsl:copy</span><span class="nt">/&gt;</span><span class="k">&lt;/xsl:for-each&gt;</span>
+      <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$page/ead/eadheader/filedesc&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;$page/ead/eadheader/filedesc&quot;</span> <span class="na">mode=</span><span class="s">&quot;ead&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;hr/&gt;</span>
+      <span class="k">&lt;/xsl:if&gt;</span>
+      <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$page/ead/frontmatter&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;$page/ead/frontmatter&quot;</span> <span class="na">mode=</span><span class="s">&quot;ead&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;hr/&gt;</span>
+      <span class="k">&lt;/xsl:if&gt;</span>
+      <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$page/ead/archdesc&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;$page/ead/archdesc&quot;</span> <span class="na">mode=</span><span class="s">&quot;ead&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;hr/&gt;</span>
+      <span class="k">&lt;/xsl:if&gt;</span>
+      <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;$page/ead/archdesc/dsc&quot;</span> <span class="na">mode=</span><span class="s">&quot;eadStart&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:element&gt;</span>
+  <span class="k">&lt;/xsl:template&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <p>identity transform </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;*&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{name(.)}&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:for-each</span> <span class="na">select=</span><span class="s">&quot;@*&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;{name(.)}&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:attribute&gt;</span>
+      <span class="k">&lt;/xsl:for-each&gt;</span>
+      <span class="k">&lt;xsl:apply-templates</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:element&gt;</span>
+  <span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p>Copyright (c) 2012, Regents of the University of California
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li>Redistributions of source code must retain the above copyright notice, 
+this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, 
+this list of conditions and the following disclaimer in the documentation 
+and/or other materials provided with the distribution.</li>
+<li>Neither the name of the University of California nor the names of its
+contributors may be used to endorse or promote products derived from this 
+software without specific prior written permission.</li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;/xsl:stylesheet&gt;</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

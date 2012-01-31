@@ -1,0 +1,52 @@
+<!DOCTYPE html>  <html> <head>   <title>c2c0x.xsl</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               c2c0x.xsl             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Copyright 2012 UC Regents all Rights Reserved </p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>BSD License at botton of file </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:stylesheet</span> 
+  <span class="na">xmlns:xsl=</span><span class="s">&quot;http://www.w3.org/1999/XSL/Transform&quot;</span> 
+  <span class="na">version=</span><span class="s">&quot;1.0&quot;</span>
+  <span class="na">xmlns:exsl=</span><span class="s">&quot;http://exslt.org/common&quot;</span>
+  <span class="na">extension-element-prefixes=</span><span class="s">&quot;exsl&quot;</span>
+<span class="nt">&gt;</span>
+
+  <span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;c&quot;</span> <span class="na">mode=</span><span class="s">&quot;c2c0x&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:message</span><span class="nt">&gt;</span><span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;count(ancestor::c)&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:message&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">mode=</span><span class="s">&quot;c2c0x&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:template&gt;</span>
+
+  </pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>identity transform </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;*&quot;</span> <span class="na">mode=</span><span class="s">&quot;c2c0x&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{name(.)}&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:for-each</span> <span class="na">select=</span><span class="s">&quot;@*&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;{name(.)}&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:attribute&gt;</span>
+      <span class="k">&lt;/xsl:for-each&gt;</span>
+      <span class="k">&lt;xsl:apply-templates</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:element&gt;</span>
+  <span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Copyright (c) 2012, Regents of the University of California
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li>Redistributions of source code must retain the above copyright notice, 
+this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, 
+this list of conditions and the following disclaimer in the documentation 
+and/or other materials provided with the distribution.</li>
+<li>Neither the name of the University of California nor the names of its
+contributors may be used to endorse or promote products derived from this 
+software without specific prior written permission.</li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;/xsl:stylesheet&gt;</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

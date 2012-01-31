@@ -1,0 +1,487 @@
+<!DOCTYPE html>  <html> <head>   <title>table.common.xsl</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               table.common.xsl             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="k">&lt;xsl:stylesheet</span> <span class="na">xmlns:xsl=</span><span class="s">&quot;http://www.w3.org/1999/XSL/Transform&quot;</span>
+                <span class="na">xmlns:doc=</span><span class="s">&quot;http://nwalsh.com/xsl/documentation/1.0&quot;</span>
+                <span class="na">exclude-result-prefixes=</span><span class="s">&quot;doc&quot;</span>
+                <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Copyright</p>
+
+<p>Copyright (C) 1999, 2000, 2001, 2002 Norman Walsh</p>
+
+<p>Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the ``Software''), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or
+sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>Except as contained in this notice, the names of individuals
+credited with contribution to this software shall not be used in
+advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization
+from the individuals in question.</p>
+
+<p>Any stylesheet derived from this Software that is publically
+distributed will be identified with a different name and the
+version strings in any derived Software will be changed so that
+no possibility of confusion between the derived package and this
+Software will exist.</p>
+
+<p>Warranty</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT.  IN NO EVENT SHALL NORMAN WALSH OR ANY OTHER
+CONTRIBUTOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<hr />
+
+<p>derived from $Id: table.common.xsl,v 1.1 2008/09/13 17:15:12 tingle Exp $
+     <strong><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em><em>*</em>*</strong></p>
+
+<pre><code> This file is part of the XSL DocBook Stylesheet distribution.
+ See ../README or http://nwalsh.com/docbook/xsl/ for copyright
+ and other information.
+
+ ******************************************************************** 
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>==================================================================== </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;blank.spans&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;cols&quot;</span> <span class="na">select=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$cols &amp;gt; 0&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>0:<span class="k">&lt;/xsl:text&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;blank.spans&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;cols&quot;</span> <span class="na">select=</span><span class="s">&quot;$cols - 1&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;calculate.following.spans&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;colspan&quot;</span> <span class="na">select=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;spans&quot;</span> <span class="na">select=</span><span class="s">&quot;&#39;&#39;&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$colspan &amp;gt; 0&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;calculate.following.spans&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspan&quot;</span> <span class="na">select=</span><span class="s">&quot;$colspan - 1&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;spans&quot;</span> <span class="na">select=</span><span class="s">&quot;substring-after($spans,&#39;:&#39;)&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:call-template&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$spans&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;finaltd&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;spans&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;col&quot;</span> <span class="na">select=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$spans != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;starts-with($spans,&#39;0:&#39;)&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;empty.table.cell&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;$col&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:call-template&gt;</span>
+      <span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span><span class="k">&lt;/xsl:otherwise&gt;</span>
+    <span class="k">&lt;/xsl:choose&gt;</span>
+
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;finaltd&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;spans&quot;</span> <span class="na">select=</span><span class="s">&quot;substring-after($spans,&#39;:&#39;)&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;col&quot;</span> <span class="na">select=</span><span class="s">&quot;$col+1&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;sfinaltd&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;spans&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$spans != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;starts-with($spans,&#39;0:&#39;)&quot;</span><span class="nt">&gt;</span>0:<span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;substring-before($spans,&#39;:&#39;)-1&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>:<span class="k">&lt;/xsl:text&gt;</span>
+      <span class="k">&lt;/xsl:otherwise&gt;</span>
+    <span class="k">&lt;/xsl:choose&gt;</span>
+
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;sfinaltd&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;spans&quot;</span> <span class="na">select=</span><span class="s">&quot;substring-after($spans,&#39;:&#39;)&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;entry.colnum&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$entry/@spanname&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;spanname&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry/@spanname&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;spanspec&quot;</span>
+                    <span class="na">select=</span><span class="s">&quot;$entry/ancestor::tgroup/spanspec[@spanname=$spanname]&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span>
+                    <span class="na">select=</span><span class="s">&quot;$entry/ancestor::tgroup/colspec[@colname=$spanspec/@namest]&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colspec.colnum&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span> <span class="na">select=</span><span class="s">&quot;$colspec&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:call-template&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$entry/@colname&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;colname&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry/@colname&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span>
+                    <span class="na">select=</span><span class="s">&quot;$entry/ancestor::tgroup/colspec[@colname=$colname]&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colspec.colnum&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span> <span class="na">select=</span><span class="s">&quot;$colspec&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:call-template&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$entry/@namest&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;namest&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry/@namest&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span>
+                    <span class="na">select=</span><span class="s">&quot;$entry/ancestor::tgroup/colspec[@colname=$namest]&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colspec.colnum&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span> <span class="na">select=</span><span class="s">&quot;$colspec&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:call-template&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    </pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>no idea, return 0 </p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>0<span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="nt">&lt;doc:template</span> <span class="na">name=</span><span class="s">&quot;entry.colnum&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;refpurpose&gt;</span>Determine the column number in which a given entry occurs<span class="nt">&lt;/refpurpose&gt;</span>
+<span class="nt">&lt;refdescription&gt;</span>
+<span class="nt">&lt;para&gt;</span>If an <span class="nt">&lt;sgmltag&gt;</span>entry<span class="nt">&lt;/sgmltag&gt;</span> has a
+<span class="nt">&lt;sgmltag</span> <span class="na">class=</span><span class="s">&quot;attribute&quot;</span><span class="nt">&gt;</span>colname<span class="nt">&lt;/sgmltag&gt;</span> or
+<span class="nt">&lt;sgmltag</span> <span class="na">class=</span><span class="s">&quot;attribute&quot;</span><span class="nt">&gt;</span>namest<span class="nt">&lt;/sgmltag&gt;</span> attribute, this template
+will determine the number of the column in which the entry should occur.
+For other <span class="nt">&lt;sgmltag&gt;</span>entry<span class="nt">&lt;/sgmltag&gt;</span>s, nothing is returned.<span class="nt">&lt;/para&gt;</span>
+<span class="nt">&lt;/refdescription&gt;</span>
+<span class="nt">&lt;refparameter&gt;</span>
+<span class="nt">&lt;variablelist&gt;</span>
+<span class="nt">&lt;varlistentry&gt;&lt;term&gt;</span>entry<span class="nt">&lt;/term&gt;</span>
+<span class="nt">&lt;listitem&gt;</span>
+<span class="nt">&lt;para&gt;</span>The <span class="nt">&lt;sgmltag&gt;</span>entry<span class="nt">&lt;/sgmltag&gt;</span>-element which is to be tested.<span class="nt">&lt;/para&gt;</span>
+<span class="nt">&lt;/listitem&gt;</span>
+<span class="nt">&lt;/varlistentry&gt;</span>
+<span class="nt">&lt;/variablelist&gt;</span>
+<span class="nt">&lt;/refparameter&gt;</span>
+
+<span class="nt">&lt;refreturn&gt;</span>
+<span class="nt">&lt;para&gt;</span>This template returns the column number if it can be determined,
+or 0 (the empty string)<span class="nt">&lt;/para&gt;</span>
+<span class="nt">&lt;/refreturn&gt;</span>
+<span class="nt">&lt;/doc:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;colspec.colnum&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$colspec/@colnum&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$colspec/@colnum&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$colspec/preceding-sibling::colspec&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;prec.colspec.colnum&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colspec.colnum&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span>
+                          <span class="na">select=</span><span class="s">&quot;$colspec/preceding-sibling::colspec[1]&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:call-template&gt;</span>
+      <span class="k">&lt;/xsl:variable&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$prec.colspec.colnum + 1&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>1<span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;calculate.colspan&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;spanname&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry/@spanname&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;spanspec&quot;</span>
+                <span class="na">select=</span><span class="s">&quot;$entry/ancestor::tgroup/spanspec[@spanname=$spanname]&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;namest&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;@spanname&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$spanspec/@namest&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$entry/@namest&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:otherwise&gt;</span>
+    <span class="k">&lt;/xsl:choose&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;nameend&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;@spanname&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$spanspec/@nameend&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$entry/@nameend&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:otherwise&gt;</span>
+    <span class="k">&lt;/xsl:choose&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;scol&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colspec.colnum&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span>
+                      <span class="na">select=</span><span class="s">&quot;$entry/ancestor::tgroup/colspec[@colname=$namest]&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;ecol&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colspec.colnum&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span>
+                      <span class="na">select=</span><span class="s">&quot;$entry/ancestor::tgroup/colspec[@colname=$nameend]&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$namest != &#39;&#39; and $nameend != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;number($ecol) &amp;gt;= number($scol)&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$ecol - $scol + 1&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$scol - $ecol + 1&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:otherwise&gt;</span>
+      <span class="k">&lt;/xsl:choose&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>1<span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;calculate.rowsep&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;inherited.table.attribute&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;$colnum&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;&#39;rowsep&#39;&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:call-template&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;calculate.colsep&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;inherited.table.attribute&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;$colnum&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;&#39;colsep&#39;&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:call-template&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;inherited.table.attribute&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;entry&quot;</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;row&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry/ancestor-or-self::row[1]&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;&#39;colsep&#39;&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;tgroup&quot;</span> <span class="na">select=</span><span class="s">&quot;$row/ancestor::tgroup[1]&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;table&quot;</span> <span class="na">select=</span><span class="s">&quot;($tgroup/ancestor::table</span>
+<span class="s">                                     |$tgroup/ancestor::informaltable)[1]&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;entry.value&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;row.value&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$row&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;span.value&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$entry/@spanname&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;spanname&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry/@spanname&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;spanspec&quot;</span>
+                    <span class="na">select=</span><span class="s">&quot;$tgroup/spanspec[@spanname=$spanname]&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;span.colspec&quot;</span>
+                    <span class="na">select=</span><span class="s">&quot;$tgroup/colspec[@colname=$spanspec/@namest]&quot;</span><span class="nt">/&gt;</span>
+
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;spanspec.value&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$spanspec&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:call-template&gt;</span>
+      <span class="k">&lt;/xsl:variable&gt;</span>
+
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;scolspec.value&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$span.colspec&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:call-template&gt;</span>
+      <span class="k">&lt;/xsl:variable&gt;</span>
+
+      <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$spanspec.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$spanspec.value&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$scolspec.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$scolspec.value&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span><span class="k">&lt;/xsl:otherwise&gt;</span>
+      <span class="k">&lt;/xsl:choose&gt;</span>
+    <span class="k">&lt;/xsl:if&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;namest.value&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$entry/@namest&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;namest&quot;</span> <span class="na">select=</span><span class="s">&quot;$entry/@namest&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;colspec&quot;</span>
+                    <span class="na">select=</span><span class="s">&quot;$tgroup/colspec[@colname=$namest]&quot;</span><span class="nt">/&gt;</span>
+
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;inner.namest.value&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$colspec&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:call-template&gt;</span>
+      <span class="k">&lt;/xsl:variable&gt;</span>
+
+      <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$inner.namest.value&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$inner.namest.value&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span><span class="k">&lt;/xsl:otherwise&gt;</span>
+      <span class="k">&lt;/xsl:choose&gt;</span>
+    <span class="k">&lt;/xsl:if&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;tgroup.value&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$tgroup&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;table.value&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$table&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;default.value&quot;</span><span class="nt">&gt;</span>
+    </pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>This section used to say that rowsep and colsep have defaults based </p>             </td>             <td class="code">               <div class="highlight"><pre>    </pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>on the frame setting. Further reflection and closer examination of the </p>             </td>             <td class="code">               <div class="highlight"><pre>    </pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>CALS spec reveals I was mistaken. The default is "1" for rowsep and colsep. </p>             </td>             <td class="code">               <div class="highlight"><pre>    </pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>For everything else, the default is the tgroup value </p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$tgroup.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$tgroup.value&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$attribute = &#39;rowsep&#39;&quot;</span><span class="nt">&gt;</span>1<span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$attribute = &#39;colsep&#39;&quot;</span><span class="nt">&gt;</span>1<span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>empty </p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">&lt;/xsl:choose&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$entry.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$entry.value&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$row.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$row.value&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$tgroup.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$tgroup.value&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$table.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$table.value&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$span.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$span.value&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$namest.value != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$namest.value&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$colnum &amp;gt; 0&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;calc.colvalue&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colnum.colspec&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;$colnum&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:call-template&gt;</span>
+      <span class="k">&lt;/xsl:variable&gt;</span>
+      <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$calc.colvalue != &#39;&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$calc.colvalue&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$default.value&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:otherwise&gt;</span>
+      <span class="k">&lt;/xsl:choose&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$default.value&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;colnum.colspec&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;&#39;colname&#39;&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;colspecs&quot;</span> <span class="na">select=</span><span class="s">&quot;ancestor::tgroup/colspec&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;count&quot;</span> <span class="na">select=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;not($colspecs) or $count &amp;gt; $colnum&quot;</span><span class="nt">&gt;</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>nop </p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$colspecs[1]/@colnum&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$colspecs[1]/@colnum = $colnum&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$colspecs[1]&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;/xsl:call-template&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colnum.colspec&quot;</span><span class="nt">&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;$colnum&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspecs&quot;</span>
+                            <span class="na">select=</span><span class="s">&quot;$colspecs[position()&amp;gt;1]&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;count&quot;</span>
+                            <span class="na">select=</span><span class="s">&quot;$colspecs[1]/@colnum+1&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;/xsl:call-template&gt;</span>
+        <span class="k">&lt;/xsl:otherwise&gt;</span>
+      <span class="k">&lt;/xsl:choose&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$count = $colnum&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;$colspecs[1]&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;/xsl:call-template&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;colnum.colspec&quot;</span><span class="nt">&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colnum&quot;</span> <span class="na">select=</span><span class="s">&quot;$colnum&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;$attribute&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;colspecs&quot;</span>
+                            <span class="na">select=</span><span class="s">&quot;$colspecs[position()&amp;gt;1]&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;count&quot;</span> <span class="na">select=</span><span class="s">&quot;$count+1&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;/xsl:call-template&gt;</span>
+        <span class="k">&lt;/xsl:otherwise&gt;</span>
+      <span class="k">&lt;/xsl:choose&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;get-attribute&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;attribute&quot;</span> <span class="na">select=</span><span class="s">&quot;&#39;&#39;&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;xsl:for-each</span> <span class="na">select=</span><span class="s">&quot;$element/@*&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;local-name(.) = $attribute&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:if&gt;</span>
+  <span class="k">&lt;/xsl:for-each&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;/xsl:stylesheet&gt;</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

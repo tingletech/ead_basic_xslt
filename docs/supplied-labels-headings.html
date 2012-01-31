@@ -1,0 +1,149 @@
+<!DOCTYPE html>  <html> <head>   <title>supplied-labels-headings.xsl</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               supplied-labels-headings.xsl             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Copyright 2012 UC Regents all Rights Reserved </p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>BSD License at botton of file </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:stylesheet</span> 
+  <span class="na">xmlns:xsl=</span><span class="s">&quot;http://www.w3.org/1999/XSL/Transform&quot;</span> 
+  <span class="na">xmlns:oac=</span><span class="s">&quot;http://oac.cdlib.org&quot;</span> 
+  <span class="na">xmlns:func=</span><span class="s">&quot;http://exslt.org/functions&quot;</span> 
+  <span class="na">extension-element-prefixes=</span><span class="s">&quot;func&quot;</span> 
+  <span class="na">version=</span><span class="s">&quot;1.0&quot;</span>
+<span class="nt">&gt;</span>
+  </pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>should refactor ead.html.xslt to use the same element-name to label/head "table" </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nt">&lt;func:function</span> <span class="na">name=</span><span class="s">&quot;oac:supply-label-heading&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;element&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;element-name&quot;</span> <span class="na">select=</span><span class="s">&quot;name($element)&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;result&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;unittitle&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Title<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;unitdate&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Date<span class="k">&lt;/xsl:text&gt;</span>
+          </pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>xsl:if test="@type"> (<xsl:value-of select="@type"/>)</xsl:if </p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;unitid&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Identifier/Call Number<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;abstract&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Abstract<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;container&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Storage Unit<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;langmaterial&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Languge of Material<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;materialspec&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Material Specific Details<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;note&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Note<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;origination&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Creator/Collector<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;physdesc&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Physical Description<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;location&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Storage Location<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;repository&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Contributing Institution<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        </pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>supply headings if not present </p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;accessrestrict&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Access Information<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;accurals&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Future Additions<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;acquinfo&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Acquisition Information<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;altformavail&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Alternative For of Materials Available<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;appraisal&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Appraisal Information<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;arrangement&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Arrangement<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;bibliography&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Bibliography<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;bioghist&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Biography/Organization History<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;controlaccess&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Subjects and Indexing Terms<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;custodhist&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Custodial History<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;descgrp&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Administrative Information<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;fileplan&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Original Filing System<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;index&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Index<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;note&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Note<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;odd&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Additional Note<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;originalsloc&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Location of Original Material<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;phystech&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Technical Details<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;perfercite&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>How to Cite<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;processinfo&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Processing/Project Information<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;relatedmaterial&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Related Material<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;scopecontent&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Scope and Content Note<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;seperatedmaterial&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Removed or Separated Material<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+        <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$element-name = &#39;userestrict&#39;&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>Conditions of Use<span class="k">&lt;/xsl:text&gt;</span>
+        <span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;/xsl:choose&gt;</span>
+    <span class="k">&lt;/xsl:variable&gt;</span>
+    <span class="nt">&lt;func:return</span> <span class="na">select=</span><span class="s">&quot;$return&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/func:function&gt;</span>
+<span class="k">&lt;/xsl:stylesheet&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Copyright (c) 2012, Regents of the University of California
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li>Redistributions of source code must retain the above copyright notice, 
+this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, 
+this list of conditions and the following disclaimer in the documentation 
+and/or other materials provided with the distribution.</li>
+<li>Neither the name of the University of California nor the names of its
+contributors may be used to endorse or promote products derived from this 
+software without specific prior written permission.</li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE.</p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

@@ -1,0 +1,226 @@
+<!DOCTYPE html>  <html> <head>   <title>at2oac.xsl</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               at2oac.xsl             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Copyright 2012 UC Regents all Rights Reserved </p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>BSD License at botton of file </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:stylesheet</span> 
+  <span class="na">version=</span><span class="s">&quot;1.0&quot;</span> 
+  <span class="na">xmlns:xsl=</span><span class="s">&quot;http://www.w3.org/1999/XSL/Transform&quot;</span>
+  <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+  <span class="na">xmlns:ead=</span><span class="s">&quot;urn:isbn:1-931666-22-9&quot;</span>
+  <span class="na">xmlns:xlink=</span><span class="s">&quot;http://www.w3.org/1999/xlink&quot;</span>
+  <span class="na">xmlns=</span><span class="s">&quot;urn:isbn:1-931666-22-9&quot;</span><span class="nt">&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>set strip-namespace to anything other than yes to
+     disable default stripping</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;strip-namespace&quot;</span> <span class="na">select=</span><span class="s">&quot;&#39;yes&#39;&quot;</span><span class="nt">/&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>set label-to-physdesc to anything other than '' to 
+     disable default removal of mis-labeled container/@label's
+     and they will be converted to sibling <physdesc>'s instead</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;label-to-physdesc&quot;</span><span class="nt">/&gt;</span> </pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>supply alternate dsc type or use default </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;dsc-type&quot;</span> <span class="na">select=</span><span class="s">&quot;&#39;combined&#39;&quot;</span><span class="nt">/&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>supply repositorycode or use default </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:param</span> 
+  <span class="na">name=</span><span class="s">&quot;repositorycode&quot;</span> 
+  <span class="na">select=</span><span class="s">&quot;/ead:ead/ead:eadheader/ead:eadid/@mainagencycode&quot;</span><span class="nt">/&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p>supply countrycode or use default </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:param</span> 
+  <span class="na">name=</span><span class="s">&quot;countrycode&quot;</span> 
+  <span class="na">select=</span><span class="s">&quot;translate(</span>
+<span class="s">    /ead:ead/ead:eadheader/ead:eadid/@countrycode,</span>
+<span class="s">    &#39;abcdefghijklmnopqrstuvwxyz&#39;, &#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39; )&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$strip-namespace = &#39;yes&#39;&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>urn:isbn:1-931666-22-9<span class="k">&lt;/xsl:text&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:variable&gt;</span>
+
+<span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;xlink-namespace&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$strip-namespace = &#39;yes&#39;&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>http://www.w3.org/1999/xlink<span class="k">&lt;/xsl:text&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:variable&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>root template </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;/|comment()|processing-instruction()&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:copy</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:apply-templates</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:copy&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>add dsc/@type </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;ead:dsc[parent::ead:archdesc and position()=1]&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{name()}&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;@*&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(@type) and $dsc-type!=&#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;type&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$dsc-type&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:attribute&gt;</span>
+    <span class="k">&lt;/xsl:if&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:element&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>copy repositorycode and countrycode from eadid to unitid in
+     archdesc/did/unittitle</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;ead:unitid[parent::ead:did and not(ancestor::ead:dsc)]&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{name()}&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;@*&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(@repositorycode) and $repositorycode!=&#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;repositorycode&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$repositorycode&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:attribute&gt;</span>
+    <span class="k">&lt;/xsl:if&gt;</span>
+    <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(@countrycode) and $countrycode!=&#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;countrycode&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$countrycode&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:attribute&gt;</span>
+    <span class="k">&lt;/xsl:if&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:element&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>upper-case the country code </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;@countrycode[parent::ead:eadid]&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;countrycode&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$countrycode&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:attribute&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>copy overloaded container labels to sibling physdesc </p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>TODO: specifically target AT @label values? </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;ead:container[@label]&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{name()}&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;@*[name()!=&#39;label&#39;] | node() &quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:element&gt;</span>
+  <span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;$label-to-physdesc&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;physdesc&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;@label&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:element&gt;</span>
+  <span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <p>dao from AT style to MOAC style </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;ead:c01|ead:c02|ead:c03|ead:c04|ead:c05|ead:c06|ead:c07|ead:c08|ead:c09|ead:c10|ead:c11|ead:c12&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p>head? , did , (accessrestrict | accruals | acqinfo | altformavail | appraisal | arrangement | bibliography | bioghist | controlaccess | custodhist | descgrp | fileplan | index | odd | originalsloc | otherfindaid | phystech | prefercite | processinfo | relatedmaterial | scopecontent | separatedmaterial | userestrict | dsc | dao | daogrp | note)* , (thead? , c04+) </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{name()}&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;@*&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;ead:head | ead:did | ead:accessrestrict | ead:accruals</span>
+<span class="s">      | ead:acqinfo | ead:altformavail | ead:appraisal | ead:arrangement | ead:bibliography </span>
+<span class="s">      | ead:bioghist | ead:controlaccess | ead:custodhist | ead:descgrp | ead:fileplan | ead:index</span>
+<span class="s">      | ead:odd | ead:originalsloc | ead:otherfindaid | ead:phystech | ead:prefercite </span>
+<span class="s">      | ead:processinfo | ead:relatedmaterial | ead:scopecontent | ead:separatedmaterial </span>
+<span class="s">      | ead:userestrict | ead:dsc | ead:daogrp | ead:note | ead:thead&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;ead:dao&quot;</span> <span class="na">mode=</span><span class="s">&quot;convert&quot;</span> <span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;ead:c01|ead:c02|ead:c03|ead:c04|ead:c05|ead:c06|ead:c07|ead:c08|ead:c09|ead:c10|ead:c11|ead:c12&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="k">&lt;/xsl:element&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;ead:dao&quot;</span> <span class="na">mode=</span><span class="s">&quot;convert&quot;</span><span class="nt">&gt;</span><span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>
+<span class="k">&lt;/xsl:text&gt;</span>
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;plusone&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;number(substring(name(..),2,2))+1&quot;</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+  <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;cD&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$plusone &amp;lt; 10&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>c0<span class="k">&lt;/xsl:text&gt;</span>
+      <span class="k">&lt;/xsl:when&gt;</span>
+      <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:text</span><span class="nt">&gt;</span>c1<span class="k">&lt;/xsl:text&gt;</span>
+      <span class="k">&lt;/xsl:otherwise&gt;</span>
+    <span class="k">&lt;/xsl:choose&gt;</span>
+  <span class="k">&lt;/xsl:variable&gt;</span>
+  </pre></div>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p>c0x </p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{$cD}{number($plusone) mod 10}&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+    </pre></div>             </td>           </tr>                               <tr id="section-18">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>               <p>did </p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;did&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-19">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>               <p>unititle </p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">&lt;xsl:element</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span> <span class="na">name=</span><span class="s">&quot;unittitle&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;ead:daodesc/ead:p&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:element&gt;</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-20">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-20">&#182;</a>               </div>               <p>dao </p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">&lt;xsl:element</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span> <span class="na">name=</span><span class="s">&quot;dao&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;href&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$xlink-namespace}&quot;</span><span class="nt">&gt;</span>
+          <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;@xlink:href&quot;</span><span class="nt">/&gt;</span>
+        <span class="k">&lt;/xsl:attribute&gt;</span>
+      <span class="k">&lt;/xsl:element&gt;</span>
+    <span class="k">&lt;/xsl:element&gt;</span>
+  <span class="k">&lt;/xsl:element&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-21">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-21">&#182;</a>               </div>               <p>modified identity templates </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;*&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$namespace!=&#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:copy</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;@*|node()&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:copy&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;{local-name()}&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;@*|node()&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:element&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;@*&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$namespace!=&#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:copy</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;{local-name()}&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:attribute&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-22">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-22">&#182;</a>               </div>               <p>convert @xlink to EAD linking attributes if $namespace='' </p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-23">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-23">&#182;</a>               </div>               <p>@xlink:
+      http://www.w3.org/TR/xlink/#link-behaviors </p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-24">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>               <p>EAD linking attributes: 
+      http://www.loc.gov/ead/tglib/att_link.html </p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-25">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-25">&#182;</a>               </div>               <p>rename xlink:type to linktype (or copy as is) </p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;@xlink:type&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$namespace!=&#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-26">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-26">&#182;</a>               </div>               <p>keep the @xlink: attributes if we are not nuking namespaces </p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">&lt;xsl:copy</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&#39;linktype&#39;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;/xsl:attribute&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;@xlink:actuate | @xlink:show&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$namespace!=&#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-27">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-27">&#182;</a>               </div>               <p>keep the @xlink: attributes if we are not nuking namespaces </p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">&lt;xsl:copy</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+      </pre></div>             </td>           </tr>                               <tr id="section-28">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-28">&#182;</a>               </div>               <p>hack @xlink: attributes to be EAD 2002 DTD link attributes </p>             </td>             <td class="code">               <div class="highlight"><pre>      <span class="k">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">&quot;{local-name()}&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+          </pre></div>             </td>           </tr>                               <tr id="section-29">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-29">&#182;</a>               </div>               <p>@xlink:acuate and @xlink:show 
+               whith the value "other" and "none"
+               convert to 
+               acutateother, showother, acutatenone, or shownone</p>             </td>             <td class="code">               <div class="highlight"><pre>          <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;.=&#39;other&#39; or .=&#39;none&#39;&quot;</span><span class="nt">&gt;</span>
+            <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;local-name()&quot;</span><span class="nt">/&gt;</span>
+            <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;/xsl:when&gt;</span>
+          <span class="k">&lt;xsl:otherwise</span><span class="nt">&gt;</span>
+              </pre></div>             </td>           </tr>                               <tr id="section-30">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-30">&#182;</a>               </div>               <p>@xlink camel case values get foled to EAD DTD all lower case values </p>             </td>             <td class="code">               <div class="highlight"><pre>              <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;translate(.,&#39;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;,&#39;abcdefghijklmnopqrstuvwxyz&#39;)&quot;</span><span class="nt">/&gt;</span>
+          <span class="k">&lt;/xsl:otherwise&gt;</span>
+        <span class="k">&lt;/xsl:choose&gt;</span>
+      <span class="k">&lt;/xsl:attribute&gt;</span>
+    <span class="k">&lt;/xsl:otherwise&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;@xsi:*&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span>
+  <span class="k">&lt;xsl:choose</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:when</span> <span class="na">test=</span><span class="s">&quot;$namespace!=&#39;&#39;&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:copy</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:when&gt;</span>
+    <span class="k">&lt;xsl:otherwise</span><span class="nt">/&gt;</span>
+  <span class="k">&lt;/xsl:choose&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
+
+  <span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;c|ead:c&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-31">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-31">&#182;</a>               </div>               <p>c2c0x </p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">&quot;depth&quot;</span> <span class="na">select=</span><span class="s">&quot;1 + count(ancestor::c|ancestor::ead:c)&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;xsl:element</span> <span class="na">name=</span><span class="s">&quot;c{format-number($depth,&#39;00&#39;)}&quot;</span> <span class="na">namespace=</span><span class="s">&quot;{$namespace}&quot;</span><span class="nt">&gt;</span>
+      <span class="k">&lt;xsl:apply-templates</span> <span class="na">select=</span><span class="s">&quot;@*&quot;</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+      <span class="k">&lt;xsl:apply-templates</span> <span class="na">mode=</span><span class="s">&quot;at2oac&quot;</span><span class="nt">/&gt;</span>
+    <span class="k">&lt;/xsl:element&gt;</span>
+  <span class="k">&lt;/xsl:template&gt;</span>
+
+<span class="k">&lt;/xsl:stylesheet&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-32">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-32">&#182;</a>               </div>               <p>Copyright (c) 2012, Regents of the University of California
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li>Redistributions of source code must retain the above copyright notice, 
+this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, 
+this list of conditions and the following disclaimer in the documentation 
+and/or other materials provided with the distribution.</li>
+<li>Neither the name of the University of California nor the names of its
+contributors may be used to endorse or promote products derived from this 
+software without specific prior written permission.</li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+POSSIBILITY OF SUCH DAMAGE.</p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
