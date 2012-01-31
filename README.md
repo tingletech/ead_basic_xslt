@@ -21,7 +21,7 @@ in `xslt` directory
  * [`ead_entry.xslt`](http://tingletech.github.com/ead_basic_xslt/docs/ead_entry.html) pulls it all together; interfaces `ead.html.xslt` to `template.xhtml`
  * [`ead.html.xsl`](http://tingletech.github.com/ead_basic_xslt/docs/ead.html.html) has the main EAD to HTML logic mode="ead"
  * `template.xhtml` HTML template file for output; apply-templates runs on this
- * [`at2oac.xsl`](http://tingletech.github.com/ead_basic_xslt/docs/at2oac.xsl) converts EAD schema (such as from AT) to EAD DTD mode="at2oac"
+ * [`at2oac.xsl`](http://tingletech.github.com/ead_basic_xslt/docs/at2oac.html) converts EAD schema (such as from AT) to EAD DTD mode="at2oac"
  * [`table.common.xsl`](http://tingletech.github.com/ead_basic_xslt/docs/table.common.html) CALS table to HTML from Norm Walsh mode="ead"
  * [`table.html.xsl`](http://tingletech.github.com/ead_basic_xslt/docs/table.html.html) select options for table.common.xsl mode="ead"
  * [`geocodes.xsl`](http://tingletech.github.com/ead_basic_xslt/docs/geocodes.html) provides function to expand geocodes to text
