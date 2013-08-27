@@ -153,7 +153,7 @@ phystech | prefercite | processinfo | relatedmaterial | scopecontent | separated
 </xsl:template>
 
 <xsl:template match="language[@langcode][not(text())]" mode="ead">
-        <xsl:value-of select="iso:langdecode(@langcode)"/>
+        <xsl:value-of xmlns:iso="http://www.loc.gov" select="iso:langdecode(@langcode)"/>
 </xsl:template>
 
 <xsl:template match="materialspec[not(@label)]" mode="ead">
