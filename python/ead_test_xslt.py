@@ -10,9 +10,11 @@ import fnmatch
 import glob
 import os
 import sys 
+from pprint import pprint as pp
 					# Pypi packages
 					# http://pypi.python.org/pypi/lxml
 from lxml import etree
+from eadator import eadator
 
 pathname = os.path.dirname(sys.argv[0])
 XSLT = etree.XSLT(etree.parse(os.path.join(pathname, '..', 'xslt', 'ead_entry.xslt')))
@@ -50,6 +52,10 @@ def transform_file(ead_file, outdir, index):
     # http://stackoverflow.com/questions/2507808/
     if os.stat(ead_file)[6]==0:
         return
+    message, valid = eadator.validate(ead_file)
+    if not valid:
+        pp(message)
+        return
     xml = etree.parse(ead_file).getroot()
     # http://stackoverflow.com/questions/541390/
     fileName, fileExtension = os.path.splitext(ead_file)
@@ -59,8 +65,11 @@ def transform_file(ead_file, outdir, index):
     outFile = os.path.join(htmlOutDir, ''.join([htmlFile,'.html']))
     index.append(os.path.join('./', htmlSubDir, ''.join([htmlFile,'.html'])))
     mkdir_p(htmlOutDir)
-    res = XSLT(xml)
-    res.write(outFile)
+    try:
+        res = XSLT(xml)
+        res.write(outFile)
+    except etree.XSLTApplyError:
+        pp(XSLT.error_log)
 
 # mkdir -p in python 
 # /via http://stackoverflow.com/questions/600268/
