@@ -35,15 +35,15 @@
   </xsl:variable>
   <xsl:variable name="page" select="exsl:node-set($pageIn)"/>
 
+  <xsl:param name="template" select="'template.html'"/>
+
   <!-- external HTML template -->
   <!-- http://eric.van-der-vlist.com/blog/2368_The_influence_of_microformats_on_style-free_stylesheets.item  -->
-  <xsl:variable name="layout" select="document('template.html')"/>
+  <xsl:variable name="layout" select="document($template)"/>
 
   <!-- root -->
   <xsl:template match="/">
     <xsl:apply-templates select="($layout)//*[local-name()='html']"/>
-    <!-- xsl:apply-templates select="/" mode="at2oac"/ -->
-    <!-- xsl:copy><xsl:copy-of select="$page"/></xsl:copy -->
   </xsl:template>
 
   <!-- title -->

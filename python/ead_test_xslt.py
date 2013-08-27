@@ -25,6 +25,7 @@ def main(argv=None):
         description='run xsltproc on a directory')
     parser.add_argument('indir', nargs=1, help='input directory of EAD')
     parser.add_argument('outdir', nargs=1, help='output directory of HTML')
+    parser.add_argument('--template', required=False, help='HTML template, relative to XSLT, or use absolute path')
     # parse the args from the command line if none were supplied from the REPL
     if argv is None:
         argv = parser.parse_args()
@@ -37,7 +38,7 @@ def main(argv=None):
         # http://stackoverflow.com/questions/2186525/
         for filename in fnmatch.filter(files, '*.xml'):
             filePath = os.path.join(root, filename)
-            transform_file(filePath, argv.outdir[0], index)
+            transform_file(filePath, argv.outdir[0], index, argv.template)
     f = open(os.path.join(argv.outdir[0],'index.html'), 'w')
     f.write(a2html(index))
 
@@ -48,7 +49,7 @@ def a2html(index):
     ret += "</div>\n"
     return ret
 
-def transform_file(ead_file, outdir, index):
+def transform_file(ead_file, outdir, index, template):
     # http://stackoverflow.com/questions/2507808/
     if os.stat(ead_file)[6]==0:
         return
@@ -66,7 +67,10 @@ def transform_file(ead_file, outdir, index):
     index.append(os.path.join('./', htmlSubDir, ''.join([htmlFile,'.html'])))
     mkdir_p(htmlOutDir)
     try:
-        res = XSLT(xml)
+        if template:
+            res = XSLT(xml, template=''.join(["'", template, "'"]))
+        else:
+            res = XSLT(xml)
         res.write(outFile)
     except etree.XSLTApplyError:
         pp(XSLT.error_log)
